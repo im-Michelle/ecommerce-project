@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+<header th:replace="plantilla/plantilla :: header"></header>
+<div class="container text-center">
+
+    <h1 class="text-secondary border border-success border-top-0">Lista de Órdenes y Detalles</h1>
+    <br/>
+    <div class="row">
+        <h2 class="text-secondary" th:text="${mensaje}"></h2>
+
+    </div>
+    <table th:if="${!listas.isEmpty()}" class="table table-striped table-hover table-sm">
+        <thead class="table-dark table-bordered">
+        <tr>
+            <th scope="col">ID de Orden</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orden: ${listas}">
+            <td th:text="${orden.id_orden}"></td>
+            <td>
+                <table th:if="${!orden.detalleOrdenes.isEmpty()}" class="table table-striped table-hover table-sm">
+                    <thead class="table-info table-bordered">
+                    <tr>
+                        <th scope="col">Nombre del Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total producto</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="detalle: ${orden.detalleOrdenes}">
+                        <td class="table-info" th:text="${detalle.producto.nombre}"></td>
+                        <td class="table-info" th:text="${detalle.cantidad}"></td>
+                        <td class="table-info" th:text="${detalle.calcularTotal()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td th:text="${orden.calcularTotal()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <nav th:replace="plantilla/pag-nav :: paginador"></nav>
+</div>
+<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>

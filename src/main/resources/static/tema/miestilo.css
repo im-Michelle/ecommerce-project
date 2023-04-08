@@ -1,0 +1,80 @@
+.inicio{
+    background-color:#FFFFFF
+}
+
+.footer-legales {
+    background: #232F3E;
+    color: #ccc;
+    padding: 15px 10px;
+    font-size: .738rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.redes-sociales {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #21aef3;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+  max-width: 70px;
+  max-height: 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  padding: 5px;
+  filter: grayscale(100%);
+  margin: 10px;
+}
+
+
+.logos-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-datos {
+    background-color: #f2f2f2;
+}
+
+
+.carousel-custom .carousel-item img {
+        height: 30vh;
+    }
+
+.navbar {
+    height: 95px;
+}
+
+.hoverable:hover {
+        background-image: linear-gradient(to top, #FFFFFF, #F3CCFF);
+}
+
+.card-text {
+  text-decoration: none;
+}
+
+.card-body a {
+    text-decoration: none;
+    color: black;
+}
+
+
+.card-body {
+    text-decoration: none;
+    color: black;
+}

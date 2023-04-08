@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+<header th:replace="plantilla/plantilla :: header"></header>
+<div class="container text-center">
+
+  <h1 class="text-secondary border border-success border-top-0">Detalle
+    del Producto</h1>
+  <br/>
+  <div class="row">
+    <div class="col-2">
+      <a class="btn btn-primary" href="/productos/lista">Volver a la lista de productos</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card mb-4 box-shadow hoverable">
+        <img class="card-img-top" th:src="@{/imagen/imagenesProductos/} + ${producto.idProducto} + '.jpg'" alt="Product Image">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${producto.nombre}"></h5>
+          <p class="card-text" th:text="${producto.descripcion}"></p>
+          <p class="card-text" th:text="'$'+${producto.precio}"></p>
+          <div class="btn-group">
+            <a sec:authorize="hasAnyAuthority('admin')"
+               th:href="@{/productos/modificarproductos/{id} (id=${producto.idProducto})}"
+               class="btn btn-sm btn-outline-secondary">Modificar</a>
+            <a sec:authorize="hasAnyAuthority('admin')"
+               th:href="@{/productos/borrarproductos/{id} (id=${producto.idProducto})}"
+               class="btn btn-sm btn-outline-danger">Eliminar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h3>Reseñas: </h3>
+      <div th:each="comentario : ${comentarios}" class="card my-3">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">
+            <span th:text="${comentario.cliente.nombre} + ' ' + ${comentario.cliente.apellido}"></span>
+          </h6>
+          <p class="card-text" th:text="${comentario.texto_comentario}"></p>
+          <p class="card-text text-muted">
+            <small>Reseña hecha el <span th:text="${#dates.format(comentario.fecha_comentario,'dd-MM-YYYY')}"></span></small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <a sec:authorize="hasAnyAuthority('admin','user')"
+       class="btn btn-primary" th:href="@{/comentarios/formulariocomentario}">Agregar Comentario</a>
+
+  <hr>
+
+</div>
+<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>

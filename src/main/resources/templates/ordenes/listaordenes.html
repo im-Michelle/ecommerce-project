@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+<header th:replace="plantilla/plantilla :: header"></header>
+<div class="container text-center">
+
+    <h1 class="text-secondary border border-success border-top-0">Lista
+        de Ordenes</h1>
+    <br/>
+    <div class="row">
+        <div class="col-2">
+            <a class="btn btn-primary" th:href="@{/ordenes/formularioorden}">Crear Orden</a>
+        </div>
+        <h2 class="text-secondary"
+            th:text="${mensaje}"></h2>
+
+    </div>
+    <table th:if="${!ordenes.isEmpty()}" class="table table-striped table-hover table-sm">
+        <thead class="table-dark table-bordered">
+        <tr>
+            <th scope="col">Id orden</th>
+            <th sec:authorize="hasAnyAuthority('admin')"
+                scope="col">Fecha de orden</th>
+            <th scope="col">Nombre Cliente</th>
+            <th sec:authorize="hasAnyAuthority('admin')"
+                scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ord: ${ordenes}">
+            <td th:text="${ord.id_orden}"></td>
+            <td sec:authorize="hasAnyAuthority('admin')"
+                th:text="${ord.fecha_orden}"></td>
+            <td th:text="${ord.cliente.nombre}"></td>
+            <td>
+                <a sec:authorize="hasAnyAuthority('admin')"
+                        th:href="@{/ordenes/borrarordenes/{id} (id=${ord.id_orden})}" class="btn btn-danger">Eliminar</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <nav th:replace="plantilla/pag-nav :: paginador"></nav>
+</div>
+<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>

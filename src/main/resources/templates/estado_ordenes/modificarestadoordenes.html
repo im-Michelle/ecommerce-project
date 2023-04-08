@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+<header th:replace="plantilla/plantilla :: header"></header>
+<div class="container text-center">
+  <h1 class="text-secondary border border-succes border-top-0"
+      th:text="${titulo}"/><br/>
+  <div class="card">
+    <div class="card-body">
+      <form th:action="@{/estado_ordenes/forminsertar}" th:object=${estado_orden} method="post">
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+          Verifique los siguientes errores:
+          <ul>
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="estado">Estado</label>
+              <select class="form-control" th:field="*{estado}" id="estado" name="estado" required="required">
+                <option value="">Seleccionar estado</option>
+                <option th:each="estado : ${listaEstados}" th:value="${estado.id_estado}" th:text="${estado.nombre}"></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="orden">Orden</label>
+              <select class="form-control" th:field="*{orden}" id="orden" name="orden" required="required">
+                <option value="">Seleccionar orden</option>
+                <option th:each="orden : ${listaOrdenes}" th:value="${orden.id_orden}" th:text="${orden.id_orden}"></option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <br/>
+            <button type="submit" class="btn bt-primary">Guardar</button>
+          </div>
+        </div>
+        <input type="hidden" th:field="*{id_estado_orden}"/>
+      </form>
+    </div>
+  </div>
+</div>
+<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>

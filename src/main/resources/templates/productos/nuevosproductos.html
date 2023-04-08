@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+<header th:replace="plantilla/plantilla :: header"></header>
+<div class="container text-center">
+    <h1 class="text-secondary border border-succes border-top-0"
+        th:text="${titulo}"/><br/>
+    <div class="card">
+      <div class="card-body">
+        <form th:action="@{/productos/forminsertar}" th:object=${producto} method="post">
+          <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+            Verifique los siguientes errores:
+            <ul>
+              <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre"
+                       placeholder="Nombre" required="required">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="precio">Precio</label>
+                <input type="number" class="form-control" th:field="*{precio}" id="precio" name="precio"
+                       placeholder="Nombre" required="required" min="1">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form group">
+                <label for="existencia">Existencia</label>
+                <input type="text" class="form-control" th:field="*{existencia}" id="existencia" name="existencia"
+                       placeholder="Existencia" required="required">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form group">
+                <label for="descripcion">Descripcion</label>
+                <input type="text" class="form-control" th:field="*{descripcion}" id="descripcion" name="descripcion"
+                       placeholder="Descripcion" required="required">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select class="form-control" th:field="*{categoria}" id="categoria" name="categoria" required="required">
+                  <option value="">Seleccionar categoria</option>
+                  <option th:each="categoria : ${listaCategorias}" th:value="${categoria.id_categoria}" th:text="${categoria.nombre}"></option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <br/>
+              <button type="submit" class="btn bt-primary">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>

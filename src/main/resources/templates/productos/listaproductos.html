@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+<header th:replace="plantilla/plantilla :: header"></header>
+<div class="container text-center">
+
+    <h1 class="text-secondary border border-success border-top-0">Lista de Productos</h1>
+    <br/>
+    <div class="row">
+        <div class="col-2">
+            <a sec:authorize="hasAnyAuthority('admin')"
+               class="btn btn-primary" th:href="@{/productos/formularioproducto}">Agregar Producto</a>
+        </div>
+        <h2 class="text-secondary" th:text="${mensaje}"></h2>
+    </div>
+
+    <div class="row">
+        <div th:each="pro: ${productos}" class="col-md-4">
+            <a th:href="@{/productos/producto/{id} (id=${pro.idProducto})}">
+                <div class="card mb-4 box-shadow hoverable">
+                    <img class="card-img-top" th:src="@{/imagen/imagenesProductos/} + ${pro.idProducto} + '.jpg'" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${pro.nombre}"></h5>
+                        <p class="card-text" th:text="${pro.descripcion}" hidden="hidden"></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted" th:text="'$'+${pro.precio}"></small>
+                            <div class="btn-group">
+                                <a sec:authorize="hasAnyAuthority('admin')" th:href="@{/productos/modificarproductos/{id} (id=${pro.idProducto})}" class="btn btn-sm btn-outline-secondary">Modificar</a>
+                                <a sec:authorize="hasAnyAuthority('admin')" th:href="@{/productos/borrarproductos/{id} (id=${pro.idProducto})}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <nav th:replace="plantilla/pag-nav :: paginador"></nav>
+</div>
+<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>

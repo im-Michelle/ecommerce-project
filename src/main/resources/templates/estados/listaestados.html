@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es">
+<head th:replace="plantilla/plantilla :: head"></head>
+<body>
+<header th:replace="plantilla/plantilla :: header"></header>
+<div class="container text-center">
+
+    <h1 class="text-secondary border border-success border-top-0">Lista
+        de Productos</h1>
+    <br/>
+    <div class="row">
+        <div class="col-2">
+            <a class="btn btn-primary" th:href="@{/estados/formularioestado}">Agregar Estado</a>
+        </div>
+        <h2 class="text-secondary"
+            th:text="${mensaje}"></h2>
+
+    </div>
+    <table th:if="${!estados.isEmpty()}" class="table table-striped table-hover table-sm">
+        <thead class="table-dark table-bordered">
+        <tr>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="est: ${estados}">
+            <td th:text="${est.nombre}"></td>
+            <td>
+                <a th:href="@{/estados/modificarestados/{id} (id=${est.id_estado})}"
+                   class="btn btn-success">Modificar</a>
+                <a th:href="@{/estados/borrarestados/{id} (id=${est.id_estado})}" class="btn btn-danger">Eliminar</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <nav th:replace="plantilla/pag-nav :: paginador"></nav>
+</div>
+<footer th:replace="plantilla/plantilla :: footer"></footer>
+</body>
+</html>
